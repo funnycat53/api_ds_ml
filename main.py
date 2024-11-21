@@ -7,7 +7,24 @@ app = Flask(__name__)
 def index():
     atbilde = requests.get("https://api.chucknorris.io/jokes/random")
     joks = atbilde.json()
-    return render_template("index.html", joks = joks["value"], bilde = joks["icon_url"])
+    atbilde = requests.get("https://api.chucknorris.io/jokes/categories")
+    kategorijas = atbilde.json()
+    print(kategorijas)
+    if request.method == "POST":
+        kategorija = request.form["kategorija"]
+        atbilde = requests.get(f"https://api.chucknorris.io/jokes/random?category={kategorija}")
+        joks = atbilde.json()
+
+    return render_template("index.html", joks = joks["value"], bilde = joks["icon_url"], kategorijas = kategorijas)
+
+@app.route("/uni")
+def uni():
+    atbilde = requests.get("http://universities.hipolabs.com/search?country=latvia")
+    visas = atbilde.json()
+    print(visas)
+    nosaukumi = []
+    
+    return render_template("universitates.html", uni=nosaukumi)
 
 if __name__ == "__main__":
     app.run(port=5000)

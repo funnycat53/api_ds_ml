@@ -4,8 +4,20 @@
 
     </head>
     <body>
+        <a href="/">Joki</a>
+        <a href="/uni">Universitātes</a>
+        {% block saturs %}
         <h2>Joki šeit!</h2>
         <p>{{joks}}</p>
         <img src="{{bilde}}">
+        <form method="post">
+            <select name="kategorija">
+                {% for elements in kategorijas %}
+                    <option value="{{elements}}">{{elements}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Izvēlēties joka kategoriju">
+        </form>
+        {% endblock %}
     </body>
 </html>
