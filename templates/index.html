@@ -1,23 +1,30 @@
+
 <!DOCTYPE html>
 <html>
     <head>
-
+        <script src="{{url_for('static', filename = 'funkcijas.js')}}"></script>
     </head>
     <body>
-        <a href="/">Joki</a>
+        <a href = "/">Joks</a>
+        <br>
+        <a href="/izvelies_tekstu">Teksts</a>
+        <br>
         <a href="/uni">Universitātes</a>
-        {% block saturs %}
+        <br>
+        <a href = "/jschats">Čats</a>
+        <hr>
+        {%block saturs%}
         <h2>Joki šeit!</h2>
-        <p>{{joks}}</p>
         <img src="{{bilde}}">
-        <form method="post">
-            <select name="kategorija">
+        <p>{{joks}}</p>
+        <form method = "post">
+            <select name = "kat">
                 {% for elements in kategorijas %}
-                    <option value="{{elements}}">{{elements}}</option>
-                {% endfor %}
+                    <option value = {{elements}}>{{elements}}</option>
+                {%endfor%}
             </select>
-            <input type="submit" value="Izvēlēties joka kategoriju">
+            <input type="submit" value="Izvēlēties joka kategoriju!">
         </form>
-        {% endblock %}
+        {%endblock%}
     </body>
 </html>

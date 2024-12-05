@@ -1,10 +1,18 @@
-{% extends "index.html" %}
 
-{% block saturs %}
+{%extends "index.html"%}
+
+{%block saturs%}
 
 <h3>Nosaukums - mājaslapa</h3>
-<!-- {%for viena in uni%}
+{%for viena in uni%}
+    <p>
+        
+    <b>{{viena["nosaukums"]}}</b> - 
+        {% for elem in viena["majaslapas"] %} 
+            <a href="{{elem}}">Te mājaslapa</a> 
+        {%endfor%}
 
-{% endfor %} -->
+    </p>
+{% endfor %}
 
-{% endblock %}
+{%endblock%}
