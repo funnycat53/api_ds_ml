@@ -11,8 +11,13 @@ async function suutiitZinju(){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({"saturs": zinja, "vards": vards})
+    });
+    
+    const pazinojums = await atbilde.json();
+    if (pazinojums.includes("ir aizliegts sūtīt ziņas")) {
+        let vieta = document.getElementById("chats");
+        vieta.innerHTML += `<b>Sistēmas paziņojums</b> - ${pazinojums}<br>`;
     }
-    )
 }
 
 async function lasiitZinju() {
