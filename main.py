@@ -24,9 +24,12 @@ def teksta_izvele():
     
     if request.method == "POST":
         search_text = request.form.get("izvelies_tekstu")
-        if search_text:  # Ensure search_text is not None
+        if search_text:  
             atbilde = requests.get(f"https://api.chucknorris.io/jokes/search?query={search_text}")
-            joki = atbilde.json().get("result", [{}])[0]  # Extract the first joke, if any
+            joki = atbilde.json()
+            pirmais = joki["result"][0]["value"]
+
+        return pirmais
 
     return render_template("izvelies_tekstu.html", joki=joki.get("value", "No joke found"), bilde=joki.get("icon_url", ""))
 
@@ -45,7 +48,7 @@ def uni():
 
     return render_template("universitates.html", uni=nosaukumi)
 
-
+banned_lietotaji = []
 
 @app.route("/jschats")
 def chats():
@@ -54,10 +57,23 @@ def chats():
 @app.route("/jschats/suutiit", methods = ["POST"])
 def suutiit():
     sanemtais = request.json
-    if sanemtais["saturs"] == "\clear":
+    lietotajs = sanemtais["vards"]
+    saturs = sanemtais["saturs"]
+
+    if lietotajs in banned_lietotaji:
+        return jsonify("Jums ir aizliegts sūtīt ziņas"), 403
+
+    if saturs.startswith("/ban "):
+        banned_lietotajs = saturs.split(" ", 1)[1].strip()
+        if banned_lietotajs not in banned_lietotaji:
+            banned_lietotaji.append(banned_lietotajs)
+        return jsonify(f"Lietotājam {banned_lietotajs} ir aizliegts sūtīt ziņas")
+
+    if sanemtais["saturs"] == "/clear":
         with open("chataZinas.txt", "w") as f:
             f.write("")
-        return "Izdzests"
+        return "Izdzēsts"
+
     with open("chataZinas.txt", "a") as f:
         f.write(sanemtais["vards"])
         f.write("----")

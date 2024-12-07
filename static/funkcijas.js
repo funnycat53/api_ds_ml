@@ -13,7 +13,6 @@ async function suutiitZinju(){
         body: JSON.stringify({"saturs": zinja, "vards": vards})
     }
     )
-    // lasiitZinju()
 }
 
 async function lasiitZinju() {
