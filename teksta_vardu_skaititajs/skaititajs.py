@@ -1,8 +1,6 @@
-# Read the file
 with open("teksta_vardu_skaititajs/teksts.txt", "r", encoding="UTF-8") as f:
     teksts = f.read()
 
-# Process words
 vardi = teksts.split()
 for i in range(len(vardi)):
     vardi[i] = vardi[i].strip(".,!-?*\'\")(").lower()
